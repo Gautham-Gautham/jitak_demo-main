@@ -1,0 +1,368 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+import 'package:jitak_non_getex/pages/stamp_card.dart';
+import 'package:jitak_non_getex/widgets/custom_snackbar.dart';
+import 'package:svg_flutter/svg.dart';
+
+import '../home.dart';
+
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    initializeDateFormatting('ja_JP');
+  }
+
+  @override
+  @override
+  Widget build(BuildContext context) {
+    DateTime currentDate = DateTime.now();
+    String fetchDate =
+        "${currentDate.year}年 ${currentDate.month}月 ${currentDate.day}日（${_getWeekday(currentDate.weekday)}）";
+    var gap = SizedBox(
+      height: MediaQuery.of(context).size.height * 0.028,
+    );
+    return Scaffold(
+      backgroundColor: const Color(0xffFAFAFA),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: const Center(
+                child: Text(
+              '北海道, 札幌市',
+              style: TextStyle(fontSize: 18),
+            ))),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+                onTap: () {
+                  Get.snackbar("近日公開...", "近日公開...",
+                      backgroundColor: Color(0xffFFC8AB));
+                },
+                child: SvgPicture.asset('assets/Filter_icon.svg')),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+                onTap: () {
+                  Get.snackbar("近日公開...", "近日公開...",
+                      backgroundColor: Color(0xffFFC8AB));
+                },
+                child: SvgPicture.asset('assets/Vector.svg')),
+          ),
+          const SizedBox(
+            width: 10,
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.05,
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Color(0xffFAAA14), Color(0xffFFD78D)])),
+              child: Center(
+                  child: Text(
+                fetchDate,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              )),
+            ),
+            gap,
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  // Calculate the date for the current index
+                  DateTime currentDate =
+                      DateTime.now().add(Duration(days: index));
+
+                  // Format the weekday and date in Japanese
+                  String formattedWeekday =
+                      DateFormat.E('ja_JP').format(currentDate);
+                  String formattedDate =
+                      DateFormat.d('ja_JP').format(currentDate).substring(0, 2);
+
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: currentIndex == index
+                              ? const Color(0xffFAAA14)
+                              : const Color(0xffFAFAFA),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.11,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              formattedWeekday,
+                              style: TextStyle(
+                                color: currentIndex == index
+                                    ? const Color(0xffffffff)
+                                    : const Color(0xff303030),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Noto Sans JP',
+                              ),
+                            ),
+                            Text(
+                              formattedDate,
+                              style: TextStyle(
+                                color: currentIndex == index
+                                    ? const Color(0xffffffff)
+                                    : const Color(0xff303030),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            gap,
+            Expanded(
+              flex: 0,
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => const StampCard(),
+                                ));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              // height: MediaQuery.of(context).size.height * 0.52,
+                              width: double.infinity,
+                              child: Container(
+                                // height:
+                                // MediaQuery.of(context).size.height * 0.5,
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffFFFFFF),
+                                  // color: const Color.fromARGB(255, 123, 20, 20),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: h * 0.24,
+                                      width: w,
+                                      decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10)),
+                                          color: Colors.amber,
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/happy.png'),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                    gap,
+                                    SizedBox(
+                                      width: w * 0.8,
+                                      child: Text(
+                                        '介護有料老人ホームひまわり倶楽部の介護職／ヘ\nルパー求人（パート／バイト）',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: w * 0.035),
+                                      ),
+                                    ),
+                                    gap,
+                                    Center(
+                                      child: SizedBox(
+                                        width: w * 0.7,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.amber.shade100,
+                                                  borderRadius:
+                                                      BorderRadius.circular(4)),
+                                              width: w * 0.38,
+                                              height: h * 0.045,
+                                              child: Center(
+                                                  child: Text(
+                                                '介護付き有料老人ホーム',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: w * 0.03,
+                                                    color: const Color(
+                                                        0xffFAAA14)),
+                                              )),
+                                            ),
+                                            SizedBox(
+                                              width: w * 0.2,
+                                              child: Text(
+                                                '¥ 6,000',
+                                                style: TextStyle(
+                                                    fontSize: w * 0.055,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    gap,
+                                    Center(
+                                      child: SizedBox(
+                                        width: w * 0.7,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              '5月 31日（水）08 : 00 ~ 17 : 00',
+                                              style: TextStyle(
+                                                fontSize: w * 0.03,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: SizedBox(
+                                        width: w * 0.7,
+                                        child: const Row(
+                                          children: [
+                                            Text('北海道札幌市東雲町3丁目916番地17号'),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: SizedBox(
+                                        width: w * 0.7,
+                                        child: const Row(
+                                          children: [
+                                            Text('交通費 300円'),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: SizedBox(
+                                        width: w * 0.7,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Text(
+                                              '住宅型有料老人ホームひまわり倶楽部',
+                                              style: TextStyle(
+                                                  color: Color(0xff30303059)),
+                                            ),
+                                            SvgPicture.asset(
+                                              'assets/Vector.svg',
+                                              width: w * 0.028,
+                                              color: const Color(0xff30303059),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: MediaQuery.of(context).size.height * 0.19,
+                          left: 0,
+                          child: Container(
+                            height: 30,
+                            width: 90,
+                            decoration: BoxDecoration(
+                                color: const Color(0xffFF6262),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: const Center(
+                                child: Text(
+                              '本日まで',
+                              style: TextStyle(color: Color(0xffFFFFFF)),
+                            )),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _getWeekday(int weekday) {
+    switch (weekday) {
+      case 1:
+        return '月';
+      case 2:
+        return '火';
+      case 3:
+        return '水';
+      case 4:
+        return '木';
+      case 5:
+        return '金';
+      case 6:
+        return '土';
+      case 7:
+        return '日';
+      default:
+        return '';
+    }
+  }
+}
