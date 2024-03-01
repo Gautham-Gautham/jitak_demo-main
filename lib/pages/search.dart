@@ -167,24 +167,16 @@ class _SearchPageState extends State<SearchPage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => const StampCard(),
-                                ));
+                            Get.to(const StampCard());
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SizedBox(
-                              // height: MediaQuery.of(context).size.height * 0.52,
                               width: double.infinity,
                               child: Container(
-                                // height:
-                                // MediaQuery.of(context).size.height * 0.5,
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 decoration: BoxDecoration(
                                   color: const Color(0xffFFFFFF),
-                                  // color: const Color.fromARGB(255, 123, 20, 20),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Column(
@@ -215,7 +207,7 @@ class _SearchPageState extends State<SearchPage> {
                                     gap,
                                     Center(
                                       child: SizedBox(
-                                        width: w * 0.7,
+                                        width: w * 0.8,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -254,13 +246,13 @@ class _SearchPageState extends State<SearchPage> {
                                     gap,
                                     Center(
                                       child: SizedBox(
-                                        width: w * 0.7,
+                                        width: w * 0.8,
                                         child: Row(
                                           children: [
                                             Text(
                                               '5月 31日（水）08 : 00 ~ 17 : 00',
                                               style: TextStyle(
-                                                fontSize: w * 0.03,
+                                                fontSize: w * 0.037,
                                               ),
                                             ),
                                           ],
@@ -269,47 +261,58 @@ class _SearchPageState extends State<SearchPage> {
                                     ),
                                     Center(
                                       child: SizedBox(
-                                        width: w * 0.7,
-                                        child: const Row(
+                                        width: w * 0.8,
+                                        child: Row(
                                           children: [
-                                            Text('北海道札幌市東雲町3丁目916番地17号'),
+                                            Text(
+                                              '北海道札幌市東雲町3丁目916番地17号',
+                                              style: TextStyle(
+                                                fontSize: w * 0.037,
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
                                     ),
                                     Center(
                                       child: SizedBox(
-                                        width: w * 0.7,
-                                        child: const Row(
+                                        width: w * 0.8,
+                                        child: Row(
                                           children: [
-                                            Text('交通費 300円'),
+                                            Text(
+                                              '交通費 300円',
+                                              style: TextStyle(
+                                                fontSize: w * 0.037,
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
                                     ),
                                     Center(
                                       child: SizedBox(
-                                        width: w * 0.7,
+                                        width: w * 0.8,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Text(
+                                            Text(
                                               '住宅型有料老人ホームひまわり倶楽部',
                                               style: TextStyle(
+                                                  fontSize: w * 0.037,
                                                   color: Color(0xff30303059)),
                                             ),
                                             SvgPicture.asset(
                                               'assets/Vector.svg',
-                                              width: w * 0.028,
+                                              width: w * 0.07,
                                               color: const Color(0xff30303059),
                                             )
                                           ],
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 20,
+                                    SizedBox(
+                                      height: h * 0.05,
                                     )
                                   ],
                                 ),
@@ -318,11 +321,11 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                         ),
                         Positioned(
-                          top: MediaQuery.of(context).size.height * 0.19,
+                          top: h * 0.2,
                           left: 0,
                           child: Container(
-                            height: 30,
-                            width: 90,
+                            height: h * 0.034,
+                            width: w * 0.28,
                             decoration: BoxDecoration(
                                 color: const Color(0xffFF6262),
                                 borderRadius: BorderRadius.circular(5)),

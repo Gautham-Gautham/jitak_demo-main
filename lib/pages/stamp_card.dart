@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:jitak_non_getex/pages/edit_store.dart';
 import 'package:svg_flutter/svg.dart';
+
+import '../home.dart';
 
 class StampCard extends StatefulWidget {
   const StampCard({super.key});
@@ -17,47 +20,45 @@ class _StampCardState extends State<StampCard> {
   @override
   Widget build(BuildContext context) {
     var gap = SizedBox(
-      height: MediaQuery.of(context).size.height * 0.028,
+      height: h * 0.028,
     );
     return Scaffold(
       backgroundColor: const Color(0xffA8B1FF),
       appBar: AppBar(
         backgroundColor: const Color(0xffA8B1FF),
         leading: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8),
           child: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Get.back();
             },
-            child: const CircleAvatar(
-              backgroundColor: Color(0xff949EFF),
+            child: CircleAvatar(
+              // radius: w * 0.1,
+              backgroundColor: const Color(0xff949EFF),
               child: Icon(
                 CupertinoIcons.back,
-                size: 18,
-                color: Color(0xffFFFFFF),
+                size: w * 0.08,
+                color: const Color(0xffFFFFFF),
               ),
             ),
           ),
         ),
-        title: const Text(
+        title: Text(
           'スタンプカード詳細',
           style: TextStyle(
-            color: Color(0xffFFFFFF),
+            fontSize: w * 0.05,
+            color: const Color(0xffFFFFFF),
           ),
         ),
         centerTitle: true,
         actions: [
           InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => const EditStore(),
-                    ));
+                Get.to(const EditStore());
               },
               child: SvgPicture.asset(
                 'assets/minus-circle.svg',
-                height: 30,
+                height: h * 0.04,
               )),
           const SizedBox(
             width: 15,
@@ -69,36 +70,40 @@ class _StampCardState extends State<StampCard> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: const Row(
+              height: h * 0.05,
+              width: w * 0.9,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Mer キッチン',
                     style: TextStyle(
-                        fontWeight: FontWeight.w600, color: Color(0xffFFFFFF)),
+                        fontSize: w * 0.045,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xffFFFFFF)),
                   ),
                   SizedBox(
                       child: Row(
                     children: [
                       Text(
-                        '現在の獲得数',
-                        style: TextStyle(color: Color(0xffFFFFFF)),
+                        '現在の獲得数 ',
+                        style: TextStyle(
+                            fontSize: w * 0.045, color: Color(0xffFFFFFF)),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.only(bottom: 4),
                         child: Text(
                           '30',
                           style: TextStyle(
                               color: Color(0xffFFFFFF),
-                              fontSize: 22,
+                              fontSize: w * 0.08,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
                       Text(
-                        '個',
-                        style: TextStyle(color: Color(0xffFFFFFF)),
+                        ' 個',
+                        style: TextStyle(
+                            fontSize: w * 0.045, color: Color(0xffFFFFFF)),
                       ),
                     ],
                   )),
@@ -107,8 +112,8 @@ class _StampCardState extends State<StampCard> {
             ),
             gap,
             Container(
-              height: MediaQuery.of(context).size.height * 0.38,
-              width: MediaQuery.of(context).size.width,
+              height: h * 0.4,
+              width: w,
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -116,21 +121,21 @@ class _StampCardState extends State<StampCard> {
                       topRight: Radius.circular(30))),
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 50,
+                  SizedBox(
+                    height: h * 0.04,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.28,
-                    width: MediaQuery.of(context).size.width * 0.88,
+                    height: h * 0.28,
+                    width: w * 0.88,
                     child: PageView.builder(
-                      controller: _pageController,
+                      // controller: _pageController,
                       itemCount: 2,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: MediaQuery.of(context).size.height * 0.26,
-                            width: MediaQuery.of(context).size.width * 0.84,
+                            height: h * 0.26,
+                            width: w * 0.84,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               boxShadow: [
@@ -151,13 +156,13 @@ class _StampCardState extends State<StampCard> {
                               itemCount: 15,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(8),
+                                  padding: EdgeInsets.all(w * 0.023),
                                   child: CircleAvatar(
                                     backgroundColor: Colors.white,
                                     child: Center(
                                       child: SvgPicture.asset(
                                         'assets/Star 8.svg',
-                                        height: 60,
+                                        // height: h * 0.8,
                                       ),
                                     ),
                                   ),
@@ -175,54 +180,60 @@ class _StampCardState extends State<StampCard> {
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: w * 0.8,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SizedBox(
-                          child: Text('$currentCardIndex / 2枚目'),
+                          child: Text(
+                            '$currentCardIndex / 2枚目',
+                            style: TextStyle(fontSize: w * 0.04),
+                          ),
                         )
                       ],
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: w * 0.04),
+                    child: Row(
+                      children: [
+                        Text(
+                          'スタンプ獲得履歴',
+                          style: TextStyle(
+                              fontSize: w * 0.05, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
             Expanded(
-              flex: 0,
-              child: ListView.builder(
-                itemCount: 15,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return const ListTile(
-                    tileColor: Colors.white,
-                    title: Text(
-                      'スタンプ獲得履歴',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '2021 / 11 / 18',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        Text(
-                          'スタンプを獲得しました。',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    trailing: Text('1 個',
+                flex: 0,
+                child: ListView.builder(
+                  itemCount: 15,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      tileColor: Colors.white,
+                      title: Text(
+                        '2021 / 11 / 18',
+                        style:
+                            TextStyle(fontSize: w * 0.045, color: Colors.grey),
+                      ),
+                      subtitle: Text(
+                        'スタンプを獲得しました。',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                  );
-                },
-              ),
-            )
+                            fontSize: w * 0.045, fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Text('1 個',
+                          style: TextStyle(
+                              fontSize: w * 0.045,
+                              fontWeight: FontWeight.bold)),
+                    );
+                  },
+                )),
           ],
         ),
       ),

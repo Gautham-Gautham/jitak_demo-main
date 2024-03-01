@@ -1,11 +1,14 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:jitak_non_getex/widgets/custom_checkbox.dart';
 import 'package:jitak_non_getex/widgets/custom_req.dart';
 import 'package:jitak_non_getex/widgets/custom_snackbar.dart';
 import 'package:jitak_non_getex/widgets/custom_txtfield.dart';
 import 'package:svg_flutter/svg.dart';
+
+import '../home.dart';
 
 class EditStore extends StatefulWidget {
   const EditStore({super.key});
@@ -67,13 +70,13 @@ class _EditStoreState extends State<EditStore> {
             padding: const EdgeInsets.all(8),
             child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Get.back();
               },
               child: CircleAvatar(
                 backgroundColor: Colors.grey.shade200,
-                child: const Icon(
+                child: Icon(
                   CupertinoIcons.back,
-                  size: 18,
+                  size: w * 0.07,
                   color: Colors.grey,
                 ),
               ),
@@ -89,10 +92,12 @@ class _EditStoreState extends State<EditStore> {
               children: [
                 GestureDetector(
                     onTap: () {
-                      customSnackbar(context, '近日公開...');
+                      Get.snackbar('近日公開...', "近日公開...",
+                          backgroundColor: Color(0xffFFC8AB));
                     },
-                    child: SvgPicture.asset('assets/bell.svg', height: 33)),
-                const Positioned(
+                    child:
+                        SvgPicture.asset('assets/bell.svg', height: h * 0.04)),
+                Positioned(
                   right: 0,
                   child: CircleAvatar(
                     radius: 9,
@@ -100,14 +105,14 @@ class _EditStoreState extends State<EditStore> {
                     child: Center(
                         child: Text(
                       '9+',
-                      style: TextStyle(fontSize: 10, color: Colors.white),
+                      style: TextStyle(fontSize: w * 0.03, color: Colors.white),
                     )),
                   ),
                 )
               ],
             ),
-            const SizedBox(
-              width: 15,
+            SizedBox(
+              width: w * 0.05,
             )
           ],
         ),
@@ -116,7 +121,7 @@ class _EditStoreState extends State<EditStore> {
             children: [
               customTxtReq('店舗名'),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
                 child: CustomTxtField(
                   label: '店舗名',
                   controller: storeName,
@@ -124,7 +129,7 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReq('代表担当者名'),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
                 child: CustomTxtField(
                   label: '代表担当者名',
                   controller: representativeName,
@@ -132,7 +137,7 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReq('店舗電話番号'),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
                 child: CustomTxtField(
                   label: '店舗電話番号',
                   controller: storePhoneNumber,
@@ -140,24 +145,24 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReq('店舗住所'),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
                 child: CustomTxtField(
                   label: '店舗住所',
                   controller: storeAddress,
                 ),
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: h * 0.02,
               ),
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.28,
+                  height: h * 0.28,
                   width: double.infinity,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: NetworkImage(
-                            'https://s3-alpha-sig.figma.com/img/5d2b/d022/91a55326ff6247591954a7b0fc638d43?Expires=1703462400&Signature=P-C3wQBoETHWadf4mjdypYfojCA4Ct4TP1SIsJ0VUC-~VQvq-ylhBLAjCbONsxJeUR0P68mUWunAX-vb83mOkEBLjhXrQxplTQojvgFddr5iAg-0Y3tVOxcSO-VL09NKS8e15HKbqG328IJEWI4ZiGiRXSg08rtd~lynPCXkQqtwT3lO1oNEfRBEGEncduI77y5YzjplQfIktitCbMcIlB63BKo8T5vBTksQQ27KbL9yb1PPfP98WvD4w3iQSFVvLXTqRlAMnwZbhw~qzuEfqL9JeYUvbeFsp4A9cKiQaDkxQbgiaSudpMkJFp8NMcfZJVU8QsJz70P7W2SAyCVDgQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+                            'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/master/pass/GoogleMapTA.jpg',
                           ),
                           fit: BoxFit.cover)),
                 ),
@@ -166,7 +171,7 @@ class _EditStoreState extends State<EditStore> {
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: SizedBox(
-                  height: 100,
+                  height: h * 0.15,
                   width: double.infinity,
                   child: Row(
                     children: [
@@ -177,8 +182,8 @@ class _EditStoreState extends State<EditStore> {
                             child: Stack(
                               children: [
                                 Container(
-                                  height: 91,
-                                  width: 91,
+                                  height: h * 0.11,
+                                  width: w * 0.24,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(images[index]),
@@ -494,7 +499,7 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReq('キャッチコピー'),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
                 child: CustomTxtField(
                   label: 'キャッチコピー',
                   controller: catchCopy,
@@ -502,7 +507,7 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReq('座席数'),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
                 child: CustomTxtField(
                   label: '座席数',
                   controller: noOfSeat,
@@ -526,7 +531,7 @@ class _EditStoreState extends State<EditStore> {
               customListImage(food),
               customTxtReq('来店プレゼント名*'),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
                 child: CustomTxtField(
                   label: '座席数',
                   controller: nameOfStorev,
