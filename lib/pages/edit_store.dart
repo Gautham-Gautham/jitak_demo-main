@@ -23,9 +23,9 @@ class _EditStoreState extends State<EditStore> {
     'assets/store.jpg',
   ];
   List food = [
-    'assets/food.jpg',
-    'assets/food.jpg',
-    'assets/food.jpg',
+    'assets/iceCream.jpg',
+    'assets/candadry.png',
+    'assets/COC.png',
   ];
   List inStore = [
     'assets/in-store.jpg',
@@ -82,9 +82,9 @@ class _EditStoreState extends State<EditStore> {
               ),
             ),
           ),
-          title: const Text(
+          title: Text(
             '店舗プロフィール編集',
-            style: TextStyle(),
+            style: TextStyle(fontSize: w * 0.04, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
           actions: [
@@ -93,7 +93,7 @@ class _EditStoreState extends State<EditStore> {
                 GestureDetector(
                     onTap: () {
                       Get.snackbar('近日公開...', "近日公開...",
-                          backgroundColor: Color(0xffFFC8AB));
+                          backgroundColor: const Color(0xffFFC8AB));
                     },
                     child:
                         SvgPicture.asset('assets/bell.svg', height: h * 0.04)),
@@ -101,7 +101,7 @@ class _EditStoreState extends State<EditStore> {
                   right: 0,
                   child: CircleAvatar(
                     radius: 9,
-                    backgroundColor: Color(0xffEE7D42),
+                    backgroundColor: const Color(0xffEE7D42),
                     child: Center(
                         child: Text(
                       '9+',
@@ -169,7 +169,7 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReqWithEx('店舗外観', '（最大3枚まで）'),
               Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
+                padding: EdgeInsets.only(left: w * 0.03, right: w * 0.03),
                 child: SizedBox(
                   height: h * 0.15,
                   width: double.infinity,
@@ -178,7 +178,8 @@ class _EditStoreState extends State<EditStore> {
                       for (int index = 0; index < maxImages; index++)
                         if (index < images.length)
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.only(
+                                left: w * 0.03, right: w * 0.03),
                             child: Stack(
                               children: [
                                 Container(
@@ -209,17 +210,20 @@ class _EditStoreState extends State<EditStore> {
                             strokeWidth: 0.5,
                             radius: const Radius.circular(10),
                             child: Container(
-                              height: 91,
-                              width: 91,
+                              height: h * 0.11,
+                              width: w * 0.24,
                               decoration: const BoxDecoration(),
-                              child: const Center(
+                              child: Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image(
+                                    const Image(
                                         image: AssetImage(
                                             'assets/outline-image.png')),
-                                    Text('写真を追加'),
+                                    Text(
+                                      '写真を追加',
+                                      style: TextStyle(fontSize: w * 0.035),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -237,21 +241,21 @@ class _EditStoreState extends State<EditStore> {
               customListImage(menu),
               customTxtReq('営業時間'),
               Padding(
-                padding: const EdgeInsets.all(15),
+                padding: EdgeInsets.only(left: w * 0.03, right: w * 0.03),
                 child: SizedBox(
                   width: double.infinity,
                   child: Row(
                     children: [
                       Container(
-                        height: 40.0,
-                        width: 120,
+                        height: h * 0.05,
+                        width: w * 0.35,
                         decoration: BoxDecoration(
                           border: Border.all(color: const Color(0xffC7C4C0)),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 8.0),
+                            SizedBox(width: w * 0.04),
                             Expanded(
                               child: DropdownButton<String>(
                                 underline: const SizedBox(),
@@ -280,22 +284,23 @@ class _EditStoreState extends State<EditStore> {
                           ],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SizedBox(
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: w * 0.03, right: w * 0.03),
+                        child: const SizedBox(
                           child: Text('~'),
                         ),
                       ),
                       Container(
-                        height: 40.0,
-                        width: 120,
+                        height: h * 0.05,
+                        width: w * 0.35,
                         decoration: BoxDecoration(
                           border: Border.all(color: const Color(0xffC7C4C0)),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 8.0),
+                            SizedBox(width: w * 0.04),
                             Expanded(
                               child: DropdownButton<String>(
                                 underline: const SizedBox(),
@@ -330,21 +335,21 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReq('ランチ時間'),
               Padding(
-                padding: const EdgeInsets.all(15),
+                padding: EdgeInsets.only(left: w * 0.03, right: w * 0.03),
                 child: SizedBox(
                   width: double.infinity,
                   child: Row(
                     children: [
                       Container(
-                        height: 40.0,
-                        width: 120,
+                        height: h * 0.05,
+                        width: w * 0.35,
                         decoration: BoxDecoration(
                           border: Border.all(color: const Color(0xffC7C4C0)),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 8.0),
+                            SizedBox(width: w * 0.04),
                             Expanded(
                               child: DropdownButton<String>(
                                 underline: const SizedBox(),
@@ -373,22 +378,23 @@ class _EditStoreState extends State<EditStore> {
                           ],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SizedBox(
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: w * 0.03, right: w * 0.03),
+                        child: const SizedBox(
                           child: Text('~'),
                         ),
                       ),
                       Container(
-                        height: 40.0,
-                        width: 120,
+                        height: h * 0.05,
+                        width: w * 0.35,
                         decoration: BoxDecoration(
                           border: Border.all(color: const Color(0xffC7C4C0)),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 8.0),
+                            SizedBox(width: w * 0.04),
                             Expanded(
                               child: DropdownButton<String>(
                                 underline: const SizedBox(),
@@ -431,21 +437,21 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReq('料理カテゴリー'),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: EdgeInsets.only(left: w * 0.03, right: w * 0.03),
                 child: SizedBox(
                   width: double.infinity,
                   child: Row(
                     children: [
                       Container(
-                        height: 40.0,
-                        width: 230,
+                        height: h * 0.05,
+                        width: w * 0.6,
                         decoration: BoxDecoration(
                           border: Border.all(color: const Color(0xffC7C4C0)),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 8.0),
+                            SizedBox(width: w * 0.04),
                             Expanded(
                               child: DropdownButton<String>(
                                 underline: const SizedBox(),
@@ -475,7 +481,7 @@ class _EditStoreState extends State<EditStore> {
               ),
               customTxtReq('予算'),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: EdgeInsets.only(left: w * 0.03, right: w * 0.03),
                 child: SizedBox(
                   width: double.infinity,
                   child: Row(
@@ -483,15 +489,19 @@ class _EditStoreState extends State<EditStore> {
                       Expanded(
                           child: CustomTxtField(
                               controller: rateController, label: '')),
-                      const SizedBox(
-                        width: 30,
-                        child: Center(child: Text('~')),
+                      SizedBox(
+                        width: w * 0.08,
+                        child: Center(
+                            child: Text(
+                          '~',
+                          style: TextStyle(fontSize: w * 0.04),
+                        )),
                       ),
                       Expanded(
                           child: CustomTxtField(
                               controller: rateController2, label: '')),
-                      const SizedBox(
-                        width: 40,
+                      SizedBox(
+                        width: w * 0.2,
                       ),
                     ],
                   ),
@@ -514,22 +524,57 @@ class _EditStoreState extends State<EditStore> {
                 ),
               ),
               customTxtReq('喫煙席'),
-              CheckboxRow(
-                labels: const ['有', '無'],
-                noOfBox: 2,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: w * 0.5,
+                    child: CheckboxRow(
+                      labels: const ['有', '無'],
+                      noOfBox: 2,
+                    ),
+                  ),
+                ],
               ),
               customTxtReq('駐車場'),
-              CheckboxRow(
-                labels: const ['有', '無'],
-                noOfBox: 2,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: w * 0.5,
+                    child: CheckboxRow(
+                      labels: const ['有', '無'],
+                      noOfBox: 2,
+                    ),
+                  ),
+                ],
               ),
               customTxtReq('来店プレゼント'),
-              CheckboxRow(
-                labels: const ['有（最大３枚まで）', '無'],
-                noOfBox: 2,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: w * 0.2,
+                    child: CheckboxRow(
+                      labels: const ['有'],
+                      noOfBox: 1,
+                    ),
+                  ),
+                  Text(
+                    '（最大３枚まで）',
+                    style: TextStyle(color: Colors.black54, fontSize: w * 0.04),
+                  ),
+                  SizedBox(
+                    width: w * 0.2,
+                    child: CheckboxRow(
+                      labels: const ['無'],
+                      noOfBox: 1,
+                    ),
+                  ),
+                ],
               ),
               customListImage(food),
-              customTxtReq('来店プレゼント名*'),
+              customTxtReq('来店プレゼント名'),
               Padding(
                 padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
                 child: CustomTxtField(
@@ -537,15 +582,16 @@ class _EditStoreState extends State<EditStore> {
                   controller: nameOfStorev,
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: h * 0.025,
               ),
               // CustomButton(label: '', onPressed: () {}, width: double.infinity)
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: EdgeInsets.only(left: w * 0.03, right: w * 0.03),
                 child: InkWell(
                   onTap: () {
-                    customSnackbar(context, '近日公開...');
+                    Get.snackbar("近日公開...", "近日公開...",
+                        backgroundColor: const Color(0xffFFC8AB));
                   },
                   child: Container(
                     height: 60,

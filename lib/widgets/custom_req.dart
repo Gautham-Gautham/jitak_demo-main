@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../home.dart';
+
 customTxtReq(final String txt) {
   return Padding(
     padding: const EdgeInsets.all(15),
@@ -7,10 +9,13 @@ customTxtReq(final String txt) {
       width: double.infinity,
       child: Row(
         children: [
-          Text(txt),
-          const Text(
+          Text(
+            txt,
+            style: TextStyle(fontSize: w * 0.05),
+          ),
+          Text(
             '*',
-            style: TextStyle(color: Colors.red),
+            style: TextStyle(color: Colors.red, fontSize: w * 0.05),
           ),
         ],
       ),
@@ -25,14 +30,17 @@ customTxtReqWithEx(final String txt, String txt2) {
       width: double.infinity,
       child: Row(
         children: [
-          Text(txt),
-          const Text(
+          Text(
+            txt,
+            style: TextStyle(fontSize: w * 0.035),
+          ),
+          Text(
             '*',
-            style: TextStyle(color: Colors.red),
+            style: TextStyle(color: Colors.red, fontSize: w * 0.05),
           ),
           Text(
             txt2,
-            style: const TextStyle(color: Color(0xff9C9896)),
+            style: TextStyle(color: Color(0xff9C9896), fontSize: w * 0.04),
           )
         ],
       ),
@@ -44,7 +52,7 @@ customListImage(List listName) {
   return Padding(
     padding: const EdgeInsets.only(left: 8, right: 8),
     child: SizedBox(
-      height: 100,
+      height: h * 0.15,
       width: double.infinity,
       child: ListView.builder(
         itemCount: 3,
@@ -55,8 +63,8 @@ customListImage(List listName) {
             child: Stack(
               children: [
                 Container(
-                  height: 91,
-                  width: 91,
+                  height: h * 0.11,
+                  width: w * 0.24,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(listName[index]),

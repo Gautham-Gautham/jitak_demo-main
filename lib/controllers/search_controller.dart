@@ -1,22 +1,49 @@
-// import 'package:get/get_rx/src/rx_types/rx_types.dart';
-// import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-// import 'package:intl/date_symbol_data_local.dart';
-
-// class SearchPageController extends GetxController {
-//   final RxInt currentIndex = 0.obs;
-//   final Rx<DateTime> currentDate = DateTime.now().obs;
-
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     initializeDateFormatting('ja_JP');
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:jitak_non_getex/pages/buisness.dart';
+import 'package:jitak_non_getex/pages/chat.dart';
+import 'package:jitak_non_getex/pages/profile.dart';
+import 'package:jitak_non_getex/pages/search.dart';
+//
+// class HomeController extends GetxController {
+//   var currentTab = 0.obs;
+//   var currentScreen = const SearchPage();
+//   final bucket = PageStorageBucket();
+//   var barcode = 'Tap to scan'.obs;
+//
+//   void changeTab(int index) {
+//     currentTab.value = index;
+//     // currentScreen.value = screens[index];
 //   }
-
-//   void updateIndex(int index) {
-//     currentIndex.value = index;
-//   }
-
-//   updateCurrentDate(DateTime newDate) {
-//     currentDate.value = newDate;
+//
+//   void onScan(String value) {
+//     debugPrint(value);
+//     barcode(value);
 //   }
 // }
+
+class HomeController extends GetxController {
+  var currentTab = 0.obs;
+  var barcode = 'Tap to scan'.obs;
+  var currentScreen = const SearchPage().obs;
+  final PageStorageBucket bucket = PageStorageBucket();
+  final List screens = [
+    const SearchPage(),
+    const Buisness(),
+    const Chat(),
+    const Profile(),
+  ];
+
+  void changeTab(int index) {
+    currentTab.value = index;
+  }
+
+  void changeScreen(index) {
+    currentScreen.value = index;
+  }
+
+  void onScan(String value) {
+    debugPrint(value);
+    barcode(value);
+  }
+}
