@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:jitak_non_getex/pages/stamp_card.dart';
-import 'package:jitak_non_getex/widgets/custom_snackbar.dart';
+import 'package:jitak_getex/pages/stamp_card.dart';
+import 'package:jitak_getex/widgets/custom_snackbar.dart';
 import 'package:svg_flutter/svg.dart';
 
+import '../controllers/search_controller.dart';
 import '../home.dart';
 
 class SearchPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final HomeController searchScreenController = Get.put(HomeController());
   int currentIndex = 0;
 
   @override
@@ -27,26 +29,43 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     DateTime currentDate = DateTime.now();
     String fetchDate =
         "${currentDate.year}年 ${currentDate.month}月 ${currentDate.day}日（${_getWeekday(currentDate.weekday)}）";
     var gap = SizedBox(
-      height: MediaQuery.of(context).size.height * 0.028,
+      height: h * 0.028,
     );
     return Scaffold(
       backgroundColor: const Color(0xffFAFAFA),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.5,
-            child: const Center(
-                child: Text(
-              '北海道, 札幌市',
-              style: TextStyle(fontSize: 18),
-            ))),
+        title: Container(
+            height: h * 0.045,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(w * 0.5)),
+            width: w * 0.6,
+            child:
+                // TextFormField(
+                //   decoration: InputDecoration(
+                //       contentPadding: EdgeInsets.only(),
+                //       border: InputBorder.none,
+                //       focusColor: Colors.transparent,
+                //       disabledBorder:
+                //           OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
+                //       enabledBorder: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(20))),
+                // ),
+                Row(
+              children: [
+                Text(
+                  '  北海道, 札幌市',
+                  style: TextStyle(fontSize: w * 0.05),
+                ),
+              ],
+            )),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -66,8 +85,8 @@ class _SearchPageState extends State<SearchPage> {
                 },
                 child: SvgPicture.asset('assets/Vector.svg')),
           ),
-          const SizedBox(
-            width: 10,
+          SizedBox(
+            width: w * 0.05,
           )
         ],
       ),
@@ -75,8 +94,8 @@ class _SearchPageState extends State<SearchPage> {
         child: Column(
           children: [
             Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.05,
+              width: w,
+              height: h * 0.05,
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       colors: [Color(0xffFAAA14), Color(0xffFFD78D)])),
@@ -88,69 +107,75 @@ class _SearchPageState extends State<SearchPage> {
             ),
             gap,
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  // Calculate the date for the current index
-                  DateTime currentDate =
-                      DateTime.now().add(Duration(days: index));
+                width: w * 0.9,
+                height: h * 0.1,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    // Calculate the date for the current index
+                    DateTime currentDate =
+                        DateTime.now().add(Duration(days: index));
 
-                  // Format the weekday and date in Japanese
-                  String formattedWeekday =
-                      DateFormat.E('ja_JP').format(currentDate);
-                  String formattedDate =
-                      DateFormat.d('ja_JP').format(currentDate).substring(0, 2);
+                    // Format the weekday and date in Japanese
+                    String formattedWeekday =
+                        DateFormat.E('ja_JP').format(currentDate);
+                    String formattedDate = DateFormat.d('ja_JP')
+                        .format(currentDate)
+                        .substring(0, 2);
 
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: currentIndex == index
-                              ? const Color(0xffFAAA14)
-                              : const Color(0xffFAFAFA),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.11,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              formattedWeekday,
-                              style: TextStyle(
-                                color: currentIndex == index
-                                    ? const Color(0xffffffff)
-                                    : const Color(0xff303030),
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Noto Sans JP',
+                    return Obx(() => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              searchScreenController.selectIndex(index);
+                              // setState(() {
+                              //   currentIndex = index;
+                              // });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: searchScreenController.dateIndex.value ==
+                                        index
+                                    ? const Color(0xffFAAA14)
+                                    : const Color(0xffFAFAFA),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              width: w * 0.11,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    formattedWeekday,
+                                    style: TextStyle(
+                                      color: searchScreenController
+                                                  .dateIndex.value ==
+                                              index
+                                          ? const Color(0xffffffff)
+                                          : const Color(0xff303030),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Noto Sans JP',
+                                    ),
+                                  ),
+                                  Text(
+                                    formattedDate,
+                                    style: TextStyle(
+                                      color: searchScreenController
+                                                  .dateIndex.value ==
+                                              index
+                                          ? const Color(0xffffffff)
+                                          : const Color(0xff303030),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              formattedDate,
-                              style: TextStyle(
-                                color: currentIndex == index
-                                    ? const Color(0xffffffff)
-                                    : const Color(0xff303030),
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+                          ),
+                        ));
+                  },
+                )),
             gap,
             Expanded(
               flex: 0,
@@ -174,7 +199,7 @@ class _SearchPageState extends State<SearchPage> {
                             child: SizedBox(
                               width: double.infinity,
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.8,
+                                width: w * 0.8,
                                 decoration: BoxDecoration(
                                   color: const Color(0xffFFFFFF),
                                   borderRadius: BorderRadius.circular(10),

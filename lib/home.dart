@@ -1,12 +1,6 @@
-import 'package:ai_barcode_scanner/ai_barcode_scanner.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jitak_non_getex/controllers/search_controller.dart';
-import 'package:jitak_non_getex/pages/buisness.dart';
-import 'package:jitak_non_getex/pages/chat.dart';
-import 'package:jitak_non_getex/pages/profile.dart';
-import 'package:jitak_non_getex/pages/search.dart';
+import 'package:jitak_getex/controllers/search_controller.dart';
 import 'package:svg_flutter/svg.dart';
 
 double h = 0;
@@ -38,20 +32,8 @@ class _HomeState extends State<Home> {
         backgroundColor: const MaterialColor(0xffFFD78D,
             <int, Color>{100: Color(0xffFAAA14), 50: Color(0xffEDA827)}),
         onPressed: () {
-          Get.to(AiBarcodeScanner(
-            validator: (value) {
-              return value.startsWith('https://');
-            },
-            canPop: false,
-            onScan: homeController.onScan,
-            onDetect: (p0) {},
-            onDispose: () {
-              debugPrint("Barcode scanner disposed!");
-            },
-            controller: MobileScannerController(
-              detectionSpeed: DetectionSpeed.noDuplicates,
-            ),
-          ));
+          Get.snackbar('近日公開...', "近日公開...",
+              backgroundColor: const Color(0xffFFC8AB));
         },
         child: SvgPicture.asset('assets/scan-line.svg'),
       ),

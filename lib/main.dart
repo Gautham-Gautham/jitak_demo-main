@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:jitak_non_getex/home.dart';
+import 'package:jitak_getex/home.dart';
 
 void main() {
   runApp(const MyApp());

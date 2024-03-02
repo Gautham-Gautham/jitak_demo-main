@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jitak_non_getex/pages/edit_store.dart';
+import 'package:jitak_getex/controllers/search_controller.dart';
+import 'package:jitak_getex/pages/edit_store.dart';
 import 'package:svg_flutter/svg.dart';
 
 import '../home.dart';
@@ -13,8 +14,8 @@ class StampCard extends StatefulWidget {
   State<StampCard> createState() => _StampCardState();
 }
 
-int currentCardIndex = 1;
-PageController _pageController = PageController();
+// int currentCardIndex = 1;
+final HomeController _pageController = Get.put(HomeController());
 
 class _StampCardState extends State<StampCard> {
   @override
@@ -27,17 +28,17 @@ class _StampCardState extends State<StampCard> {
       appBar: AppBar(
         backgroundColor: const Color(0xffA8B1FF),
         leading: Padding(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: GestureDetector(
             onTap: () {
               Get.back();
             },
             child: CircleAvatar(
-              // radius: w * 0.1,
+              radius: w * 0.1,
               backgroundColor: const Color(0xff949EFF),
               child: Icon(
                 CupertinoIcons.back,
-                size: w * 0.08,
+                size: w * 0.05,
                 color: const Color(0xffFFFFFF),
               ),
             ),
@@ -70,7 +71,7 @@ class _StampCardState extends State<StampCard> {
         child: Column(
           children: [
             SizedBox(
-              height: h * 0.05,
+              height: h * 0.07,
               width: w * 0.9,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,7 +123,7 @@ class _StampCardState extends State<StampCard> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: h * 0.04,
+                    height: h * 0.02,
                   ),
                   SizedBox(
                     height: h * 0.28,
@@ -173,9 +174,10 @@ class _StampCardState extends State<StampCard> {
                         );
                       },
                       onPageChanged: (index) {
-                        setState(() {
-                          currentCardIndex = index + 1;
-                        });
+                        _pageController.pageChanged(index + 1);
+                        // setState(() {
+                        //   currentCardIndex = index + 1;
+                        // });
                       },
                     ),
                   ),
@@ -184,10 +186,12 @@ class _StampCardState extends State<StampCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedBox(
-                          child: Text(
-                            '$currentCardIndex / 2枚目',
-                            style: TextStyle(fontSize: w * 0.04),
+                        Obx(
+                          () => SizedBox(
+                            child: Text(
+                              '${_pageController.starPageIndex} / 2枚目',
+                              style: TextStyle(fontSize: w * 0.04),
+                            ),
                           ),
                         )
                       ],
@@ -216,6 +220,7 @@ class _StampCardState extends State<StampCard> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return ListTile(
+                      onTap: () => Get.to(const EditStore()),
                       tileColor: Colors.white,
                       title: Text(
                         '2021 / 11 / 18',

@@ -2,10 +2,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jitak_non_getex/widgets/custom_checkbox.dart';
-import 'package:jitak_non_getex/widgets/custom_req.dart';
-import 'package:jitak_non_getex/widgets/custom_snackbar.dart';
-import 'package:jitak_non_getex/widgets/custom_txtfield.dart';
+import 'package:jitak_getex/controllers/search_controller.dart';
+import 'package:jitak_getex/widgets/custom_checkbox.dart';
+import 'package:jitak_getex/widgets/custom_req.dart';
+import 'package:jitak_getex/widgets/custom_snackbar.dart';
+import 'package:jitak_getex/widgets/custom_txtfield.dart';
 import 'package:svg_flutter/svg.dart';
 
 import '../home.dart';
@@ -19,25 +20,35 @@ class EditStore extends StatefulWidget {
 
 class _EditStoreState extends State<EditStore> {
   List images = [
-    'assets/store.jpg',
-    'assets/store.jpg',
+    'assets/store.jpeg',
+    'assets/store.jpeg',
   ];
   List food = [
     'assets/iceCream.jpg',
     'assets/candadry.png',
     'assets/COC.png',
   ];
+  List food1 = [
+    'assets/food2.jpeg',
+    'assets/food3.jpeg',
+    'assets/food4.jpeg',
+  ];
+  // List inStore = [
+  //   'assets/in-store.jpg',
+  //   'assets/in-store.jpg',
+  //   'assets/in-store.jpg',
+  // ];
   List inStore = [
-    'assets/in-store.jpg',
-    'assets/in-store.jpg',
-    'assets/in-store.jpg',
+    'assets/restaurant.jpg',
+    'assets/restaurant.jpg',
+    'assets/restaurant.jpg',
   ];
   List menu = [
-    'assets/menu.jpg',
-    'assets/menu.jpg',
-    'assets/menu.jpg',
+    'assets/menu1.jpg',
+    'assets/menu1.jpeg',
+    'assets/menu3.jpeg',
   ];
-  String selectedTime = '12:00';
+  // String selectedTime = '12:00';
   TextEditingController storeName = TextEditingController(text: 'Mer キッチン');
   TextEditingController representativeName =
       TextEditingController(text: '林田　絵梨花');
@@ -53,7 +64,7 @@ class _EditStoreState extends State<EditStore> {
   TextEditingController noOfSeat = TextEditingController(text: '40席');
   TextEditingController nameOfStorev =
       TextEditingController(text: 'いちごクリームアイスクリーム, ジュース');
-
+  final HomeController _timeController = Get.put(HomeController());
   List<bool> isCheckedList = [false, false, false, false];
 
   final int maxImages = 3;
@@ -73,10 +84,11 @@ class _EditStoreState extends State<EditStore> {
                 Get.back();
               },
               child: CircleAvatar(
+                radius: w * 0.2,
                 backgroundColor: Colors.grey.shade200,
                 child: Icon(
                   CupertinoIcons.back,
-                  size: w * 0.07,
+                  size: w * 0.05,
                   color: Colors.grey,
                 ),
               ),
@@ -100,7 +112,7 @@ class _EditStoreState extends State<EditStore> {
                 Positioned(
                   right: 0,
                   child: CircleAvatar(
-                    radius: 9,
+                    radius: w * 0.02,
                     backgroundColor: const Color(0xffEE7D42),
                     child: Center(
                         child: Text(
@@ -236,7 +248,7 @@ class _EditStoreState extends State<EditStore> {
               customTxtReqWithEx('店舗内観', '（1枚〜3枚ずつ追加してください）'),
               customListImage(inStore),
               customTxtReqWithEx('料理写真', '（1枚〜3枚ずつ追加してください）'),
-              customListImage(food),
+              customListImage(food1),
               customTxtReqWithEx('メニュー写真', '（1枚〜3枚ずつ追加してください）'),
               customListImage(menu),
               customTxtReq('営業時間'),
@@ -257,29 +269,31 @@ class _EditStoreState extends State<EditStore> {
                           children: [
                             SizedBox(width: w * 0.04),
                             Expanded(
-                              child: DropdownButton<String>(
-                                underline: const SizedBox(),
-                                icon: const Padding(
-                                  padding: EdgeInsets.only(left: 25),
-                                  child: Icon(
-                                    Icons.expand_more_rounded,
-                                    color: Color(0xffC7C4C0),
-                                  ),
-                                ),
-                                value: selectedTime,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedTime = newValue!;
-                                  });
-                                },
-                                items: List.generate(24, (index) {
-                                  final hour = index.toString().padLeft(2, '0');
-                                  return DropdownMenuItem<String>(
-                                    value: '$hour:00',
-                                    child: Text('$hour:00'),
-                                  );
-                                }).toList(),
-                              ),
+                              child: Obx(() => DropdownButton<String>(
+                                    underline: const SizedBox(),
+                                    icon: const Padding(
+                                      padding: EdgeInsets.only(left: 25),
+                                      child: Icon(
+                                        Icons.expand_more_rounded,
+                                        color: Color(0xffC7C4C0),
+                                      ),
+                                    ),
+                                    value: _timeController.selectedTime.value,
+                                    onChanged: (String? newValue) {
+                                      _timeController.changedTime(newValue!);
+                                      // setState(() {
+                                      //   selectedTime = newValue!;
+                                      // });
+                                    },
+                                    items: List.generate(24, (index) {
+                                      final hour =
+                                          index.toString().padLeft(2, '0');
+                                      return DropdownMenuItem<String>(
+                                        value: '$hour:00',
+                                        child: Text('$hour:00'),
+                                      );
+                                    }).toList(),
+                                  )),
                             ),
                           ],
                         ),
@@ -302,29 +316,31 @@ class _EditStoreState extends State<EditStore> {
                           children: [
                             SizedBox(width: w * 0.04),
                             Expanded(
-                              child: DropdownButton<String>(
-                                underline: const SizedBox(),
-                                icon: const Padding(
-                                  padding: EdgeInsets.only(left: 25),
-                                  child: Icon(
-                                    Icons.expand_more_rounded,
-                                    color: Color(0xffC7C4C0),
-                                  ),
-                                ),
-                                value: selectedTime,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedTime = newValue!;
-                                  });
-                                },
-                                items: List.generate(24, (index) {
-                                  final hour = index.toString().padLeft(2, '0');
-                                  return DropdownMenuItem<String>(
-                                    value: '$hour:00',
-                                    child: Text('$hour:00'),
-                                  );
-                                }).toList(),
-                              ),
+                              child: Obx(() => DropdownButton<String>(
+                                    underline: const SizedBox(),
+                                    icon: const Padding(
+                                      padding: EdgeInsets.only(left: 25),
+                                      child: Icon(
+                                        Icons.expand_more_rounded,
+                                        color: Color(0xffC7C4C0),
+                                      ),
+                                    ),
+                                    value: _timeController.selectedTime.value,
+                                    onChanged: (String? newValue) {
+                                      _timeController.changedTime(newValue!);
+                                      // setState(() {
+                                      //   selectedTime = newValue!;
+                                      // });
+                                    },
+                                    items: List.generate(24, (index) {
+                                      final hour =
+                                          index.toString().padLeft(2, '0');
+                                      return DropdownMenuItem<String>(
+                                        value: '$hour:00',
+                                        child: Text('$hour:00'),
+                                      );
+                                    }).toList(),
+                                  )),
                             ),
                           ],
                         ),
@@ -351,29 +367,31 @@ class _EditStoreState extends State<EditStore> {
                           children: [
                             SizedBox(width: w * 0.04),
                             Expanded(
-                              child: DropdownButton<String>(
-                                underline: const SizedBox(),
-                                icon: const Padding(
-                                  padding: EdgeInsets.only(left: 25),
-                                  child: Icon(
-                                    Icons.expand_more_rounded,
-                                    color: Color(0xffC7C4C0),
-                                  ),
-                                ),
-                                value: selectedTime,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedTime = newValue!;
-                                  });
-                                },
-                                items: List.generate(24, (index) {
-                                  final hour = index.toString().padLeft(2, '0');
-                                  return DropdownMenuItem<String>(
-                                    value: '$hour:00',
-                                    child: Text('$hour:00'),
-                                  );
-                                }).toList(),
-                              ),
+                              child: Obx(() => DropdownButton<String>(
+                                    underline: const SizedBox(),
+                                    icon: const Padding(
+                                      padding: EdgeInsets.only(left: 25),
+                                      child: Icon(
+                                        Icons.expand_more_rounded,
+                                        color: Color(0xffC7C4C0),
+                                      ),
+                                    ),
+                                    value: _timeController.selectedTime.value,
+                                    onChanged: (String? newValue) {
+                                      _timeController.changedTime(newValue!);
+                                      // setState(() {
+                                      //   selectedTime = newValue!;
+                                      // });
+                                    },
+                                    items: List.generate(24, (index) {
+                                      final hour =
+                                          index.toString().padLeft(2, '0');
+                                      return DropdownMenuItem<String>(
+                                        value: '$hour:00',
+                                        child: Text('$hour:00'),
+                                      );
+                                    }).toList(),
+                                  )),
                             ),
                           ],
                         ),
@@ -396,29 +414,31 @@ class _EditStoreState extends State<EditStore> {
                           children: [
                             SizedBox(width: w * 0.04),
                             Expanded(
-                              child: DropdownButton<String>(
-                                underline: const SizedBox(),
-                                icon: const Padding(
-                                  padding: EdgeInsets.only(left: 25),
-                                  child: Icon(
-                                    Icons.expand_more_rounded,
-                                    color: Color(0xffC7C4C0),
-                                  ),
-                                ),
-                                value: selectedTime,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedTime = newValue!;
-                                  });
-                                },
-                                items: List.generate(24, (index) {
-                                  final hour = index.toString().padLeft(2, '0');
-                                  return DropdownMenuItem<String>(
-                                    value: '$hour:00',
-                                    child: Text('$hour:00'),
-                                  );
-                                }).toList(),
-                              ),
+                              child: Obx(() => DropdownButton<String>(
+                                    underline: const SizedBox(),
+                                    icon: const Padding(
+                                      padding: EdgeInsets.only(left: 25),
+                                      child: Icon(
+                                        Icons.expand_more_rounded,
+                                        color: Color(0xffC7C4C0),
+                                      ),
+                                    ),
+                                    value: _timeController.selectedTime.value,
+                                    onChanged: (String? newValue) {
+                                      _timeController.changedTime(newValue!);
+                                      // setState(() {
+                                      //   selectedTime = newValue!;
+                                      // });
+                                    },
+                                    items: List.generate(24, (index) {
+                                      final hour =
+                                          index.toString().padLeft(2, '0');
+                                      return DropdownMenuItem<String>(
+                                        value: '$hour:00',
+                                        child: Text('$hour:00'),
+                                      );
+                                    }).toList(),
+                                  )),
                             ),
                           ],
                         ),

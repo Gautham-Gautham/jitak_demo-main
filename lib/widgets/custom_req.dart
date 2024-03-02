@@ -50,7 +50,7 @@ customTxtReqWithEx(final String txt, String txt2) {
 
 customListImage(List listName) {
   return Padding(
-    padding: const EdgeInsets.only(left: 8, right: 8),
+    padding: EdgeInsets.only(left: w * 0.04, right: w * 0.04),
     child: SizedBox(
       height: h * 0.15,
       width: double.infinity,

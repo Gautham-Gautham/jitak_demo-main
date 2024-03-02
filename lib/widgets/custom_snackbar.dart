@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../home.dart';
+
 void customSnackbar(
   BuildContext context,
   String message, {
@@ -24,7 +26,7 @@ void customSnackbar(
             ? const Duration(minutes: 30)
             : const Duration(seconds: 4),
         behavior: SnackBarBehavior.floating,
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: w * 0.8,
         showCloseIcon: true,
         closeIconColor: Colors.white,
         padding: const EdgeInsets.symmetric(

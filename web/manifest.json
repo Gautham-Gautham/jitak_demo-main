@@ -1,6 +1,6 @@
 {
-    "name": "jitak_non_getex",
-    "short_name": "jitak_non_getex",
+    "name": "jitak_getex",
+    "short_name": "jitak_getex",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

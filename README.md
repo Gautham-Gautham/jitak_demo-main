@@ -1,4 +1,4 @@
-# jitak_non_getex
+# jitak_getex
 
 A new Flutter project.
 
